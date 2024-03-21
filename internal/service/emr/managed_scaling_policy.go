@@ -126,7 +126,13 @@ func resourceManagedScalingPolicyRead(ctx context.Context, d *schema.ResourceDat
 		d.SetId("")
 		return diags
 	}
-
+	
+	if tfawserr.ErrMessageContains(err, "ValidationException", "is not valid") {
+		log.Printf("[WARN] EMR Cluster (%s) not found", d.Id())
+		d.SetId("")
+		return diags
+	}
+	
 	if tfawserr.ErrMessageContains(err, "InvalidRequestException", "does not exist") {
 		log.Printf("[WARN] EMR Managed Scaling Policy (%s) not found, removing from state", d.Id())
 		d.SetId("")
@@ -165,6 +171,11 @@ func resourceManagedScalingPolicyDelete(ctx context.Context, d *schema.ResourceD
 		return diags
 	}
 
+	if tfawserr.ErrMessageContains(err, "ValidationException", "is not valid") {
+		log.Printf("[WARN] EMR Cluster (%s) not found", d.Id())
+		return diags
+	}
+	
 	if tfawserr.ErrMessageContains(err, "InvalidRequestException", "does not exist") {
 		return diags
 	}
