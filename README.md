@@ -7,7 +7,7 @@
   </picture>
 </a>
 
-# Terraform AWS Provider.
+# Terraform AWS Provider
 
 [![Forums][discuss-badge]][discuss]
 
