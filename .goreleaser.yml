@@ -35,8 +35,7 @@ builds:
 #      - goarch: arm64
 #        goos: windows
     ldflags:
-#      - -s -w -X 'github.com/mitrichtupik/terraform-provider-aws/version.ProviderVersion={{ .Version }}'
-      - '-s -w -X main.version={{.Version}} -X main.commit={{.Commit}}'
+      - -s -w -X 'github.com/mitrichtupik/terraform-provider-aws/version.ProviderVersion={{ .Version }}'
     mod_timestamp: '{{ .CommitTimestamp }}'
 checksum:
   algorithm: sha256
