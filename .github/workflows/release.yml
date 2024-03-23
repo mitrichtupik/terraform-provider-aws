@@ -14,6 +14,7 @@ jobs:
     uses: hashicorp/ghaction-terraform-provider-release/.github/workflows/community.yml@v3
     secrets:
       gpg-private-key: '${{ secrets.GPG_PRIVATE_KEY }}'
+      gpg-private-key-passphrase: '${{ secrets.GPG_PRIVATE_KEY_PASSPHRASE }}'
     with:
-      goreleaser-release-args: '--timeout 3h --parallelism 4'
+#      goreleaser-release-args: '--timeout 3h --parallelism 4'
       setup-go-version-file: go.mod
