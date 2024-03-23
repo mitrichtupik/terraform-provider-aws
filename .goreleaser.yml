@@ -10,7 +10,7 @@ before:
 builds:
   -
     # Binary naming only required for Terraform CLI 0.12
-    binary: '{{ .ProjectName }}_v{{ .Version }}_x5'
+    binary: '{{ .ProjectName }}_v{{ .Version }}'
     env:
       - CGO_ENABLED=0
     flags:
@@ -21,7 +21,7 @@ builds:
       - linux
 #      - windows
     goarch:
-      - '386'
+#      - '386'
       - amd64
       - arm
       - arm64
