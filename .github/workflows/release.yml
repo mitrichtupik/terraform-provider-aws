@@ -25,6 +25,9 @@ jobs:
         run: |
           # Remove some unnecessary files to ensure we have enough free space.
           sudo rm -rf "$AGENT_TOOLSDIRECTORY" /usr/share/dotnet /opt/ghc "/usr/local/share/boost"
+          pwd
+          ls -la
+          df -h --total
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 0
