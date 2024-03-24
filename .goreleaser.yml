@@ -1,16 +1,11 @@
 archives:
-  - files:
-      # Ensure only built binary is archived
-      - 'none*'
-    format: zip
+  - format: zip
     name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
 before:
   hooks:
-    - 'go mod download'
+    - 'go mod tidy'
 builds:
-  -
-    # Binary naming only required for Terraform CLI 0.12
-    binary: '{{ .ProjectName }}_v{{ .Version }}_x5'
+  - binary: '{{ .ProjectName }}_v{{ .Version }}'
     env:
       - CGO_ENABLED=0
     flags:
@@ -35,18 +30,18 @@ builds:
 #      - goarch: arm64
 #        goos: windows
     ldflags:
-      - -s -w -X 'github.com/mitrichtupik/terraform-provider-aws/version.ProviderVersion={{ .Version }}'
+      - '-s -w -X github.com/mitrichtupik/terraform-provider-aws/version.ProviderVersion={{ .Version }}'
     mod_timestamp: '{{ .CommitTimestamp }}'
 checksum:
   algorithm: sha256
-  extra_files:
-    - glob: 'terraform-registry-manifest.json'
-      name_template: '{{ .ProjectName }}_{{ .Version }}_manifest.json'
+#  extra_files:
+#    - glob: 'terraform-registry-manifest.json'
+#      name_template: '{{ .ProjectName }}_{{ .Version }}_manifest.json'
   name_template: '{{ .ProjectName }}_{{ .Version }}_SHA256SUMS'
 release:
-  extra_files:
-    - glob: 'terraform-registry-manifest.json'
-      name_template: '{{ .ProjectName }}_{{ .Version }}_manifest.json'
+#  extra_files:
+#    - glob: 'terraform-registry-manifest.json'
+#      name_template: '{{ .ProjectName }}_{{ .Version }}_manifest.json'
   # If you want to manually examine the release before its live, uncomment this line:
   # draft: true
 signs:
@@ -61,3 +56,5 @@ signs:
       - "${signature}"
       - "--detach-sign"
       - "${artifact}"
+changelog:
+  use: github-native
